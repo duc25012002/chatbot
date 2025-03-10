@@ -2,4 +2,5 @@ Flask
 gunicorn
 python-dotenv
 langchain
+langchain-community
 pinecone-client
