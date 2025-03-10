@@ -6,7 +6,7 @@ from langchain import PromptTemplate
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 from pinecone import Pinecone
-from langchain_community.vectorstores import Pinecone
+from langchain_pinecone import PineconeVectorStore
 from langchain.embeddings import OpenAIEmbeddings
 from flask_cors import CORS
 
