@@ -5,8 +5,8 @@ from langchain.chains import LLMChain
 from langchain import PromptTemplate
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
-from pinecone import Pinecone
-from langchain_pinecone import PineconeVectorStore
+import pinecone
+from langchain.vectorstores import Pinecone
 from langchain.embeddings import OpenAIEmbeddings
 from flask_cors import CORS
 
@@ -38,8 +38,8 @@ embeddings = OpenAIEmbeddings()
 chain = LLMChain(llm=llm, prompt=prompt)
 
 # Initialize Pinecone
-pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-index = pc.Index("langchain-stsv")
+pinecone.init(api_key=os.getenv("PINECONE_API_KEY"))
+index = pinecone.Index("langchain-stsv")
 
 @app.route('/ask', methods=['POST'])
 def ask_question():
@@ -49,7 +49,7 @@ def ask_question():
     # Lấy thông tin context từ Pinecone
 
     
-    vector_store = PineconeVectorStore(index=index, embedding=embeddings)
+    vector_store = Pinecone(index=index, embedding=embeddings)
     result = vector_store.similarity_search(question)
 
     context = " ".join([doc.page_content for doc in result])
