@@ -48,8 +48,9 @@ def ask_question():
     print(question)
     # Lấy thông tin context từ Pinecone
 
+    vector_store = Pinecone.from_existing_index(index_name="langchain-stsv", embedding=embeddings)
 
-    vector_store = Pinecone.from_existing_index(index=index, embedding=embeddings)
+    # vector_store = Pinecone.from_existing_index(index=index, embedding=embeddings)
     result = vector_store.similarity_search(question)
 
     context = " ".join([doc.page_content for doc in result])
