@@ -1,5 +1,6 @@
 #!/bin/bash
 chmod +x start.sh
+rm -rf /opt/render/.local/lib/python*
 pip install --no-cache-dir -r requirements.txt  
 pip install gunicorn
 pip install flask
